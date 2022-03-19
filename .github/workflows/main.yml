@@ -5,4 +5,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: debug
-        run: pwd
+        run: |
+          pwd
+          cd frontend
+          pwd
