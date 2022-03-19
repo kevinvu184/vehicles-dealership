@@ -6,7 +6,7 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: frontend
+        working-directory: ./frontend
     steps:
       - name: debug
         run: pwd
