@@ -1,11 +1,11 @@
 on: [push]
 
+defaults:
+  run:
+    working-directory: ./frontend
 jobs:
   aws_cdk:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: frontend
     steps:
       - name: debug
         run: pwd
