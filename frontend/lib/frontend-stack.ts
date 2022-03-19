@@ -1,16 +1,18 @@
-import { Stack, StackProps } from 'aws-cdk-lib';
+import { Stack, StackProps, aws_s3 as s3, aws_s3_deployment as s3deploy } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
-// import * as sqs from 'aws-cdk-lib/aws-sqs';
 
 export class FrontendStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
-    // The code that defines your stack goes here
+    const websiteBucket = new s3.Bucket(this, 'WebsiteBucket', {
+      websiteIndexDocument: 'index.html',
+      publicReadAccess: true,
+    });
 
-    // example resource
-    // const queue = new sqs.Queue(this, 'FrontendQueue', {
-    //   visibilityTimeout: cdk.Duration.seconds(300)
-    // });
+    new s3deploy.BucketDeployment(this, 'DeployWebsite', {
+      sources: [s3deploy.Source.asset('./src')],
+      destinationBucket: websiteBucket,
+    });
   }
 }
