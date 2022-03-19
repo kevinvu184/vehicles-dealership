@@ -4,12 +4,13 @@ jobs:
   aws_cdk:
     runs-on: ubuntu-latest
     steps:
+      - name: cd frontend
+        run: cd frontend
       - name: cdk deploy
         uses: youyo/aws-cdk-github-actions@v2
         with:
           cdk_subcommand: 'deploy'
           cdk_args: '--require-approval never'
-          working_dir: './frontend'
           actions_comment: false
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
