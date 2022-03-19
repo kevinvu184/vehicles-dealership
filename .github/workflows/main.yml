@@ -3,9 +3,10 @@ on: [push]
 jobs:
   aws_cdk:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: frontend
     steps:
       - name: debug
-        run: |
-          pwd
-          cd frontend
-          pwd
+        run: pwd
