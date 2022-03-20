@@ -6,9 +6,17 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      
+      - run: npm install
+
       - name: serverless deploy
         uses: serverless/github-action@v3
         with:
+          # https://github.com/serverless/github-action/issues/53#issuecomment-1059839383
           args: -c "cd ./backend && serverless deploy"
           entrypoint: /bin/sh
         env:
