@@ -1,10 +1,11 @@
 on: [push]
 
 jobs:
-  aws_cdk:
+  frontend:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      
       - name: cdk deploy
         uses: youyo/aws-cdk-github-actions@v2
         with:
