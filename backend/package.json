@@ -1,0 +1,13 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "devDependencies": {
+    "serverless-iam-roles-per-function": "^3.2.0",
+    "serverless-offline": "^8.5.0",
+    "serverless-plugin-typescript": "^2.1.1"
+  },
+  "dependencies": {
+    "@types/aws-lambda": "^8.10.93"
+  }
+}

@@ -1,0 +1,49 @@
+service: backend
+frameworkVersion: '3'
+
+custom:
+  tableName: 'dealership-table-${sls:stage}'
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  region: ap-southeast-2
+  environment:
+    DEALERSHIP_TABLE: ${self:custom.tableName}
+
+functions:
+  listDealers:
+    handler: lambda/listDealers.handler
+    events:
+      - httpApi:
+          method: GET
+          path: /dealers
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - dynamodb:Query
+        Resource:
+          - Fn::GetAtt: [ DealershipTable, Arn ]
+
+resources:
+  Resources:
+    DealershipTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        AttributeDefinitions:
+          - AttributeName: PK
+            AttributeType: S
+          - AttributeName: SK
+            AttributeType: S
+        KeySchema:
+          - AttributeName: PK
+            KeyType: HASH
+          - AttributeName: SK
+            KeyType: RANGE
+        BillingMode: PAY_PER_REQUEST
+        TableName: ${self:custom.tableName}
+
+plugins:
+  - serverless-iam-roles-per-function
+  - serverless-plugin-typescript
+  - serverless-offline
