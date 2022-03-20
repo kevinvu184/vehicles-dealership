@@ -1,4 +1,4 @@
-const url = "https://hdsck7k3t4.execute-api.ap-southeast-2.amazonaws.com/dev";
+const url = "https://cy30854e9g.execute-api.ap-southeast-2.amazonaws.com";
 
 async function loadTableData(url) {
   const tableBody = document.querySelector("tbody");
