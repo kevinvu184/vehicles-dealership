@@ -1,9 +1,9 @@
 import { APIGatewayProxyHandler } from 'aws-lambda';
 import axios from 'axios';
 
-export const handler: APIGatewayProxyHandler = async () => {
+export const handler: APIGatewayProxyHandler = async (event) => {
   const retries = 3
-  const url = 'https://bb61co4l22.execute-api.us-west-2.amazonaws.com/development/dealers';
+  const url = `https://bb61co4l22.execute-api.us-west-2.amazonaws.com/development/vehicles/${event.pathParameters.bac}`;
 
   try {
     for (let i = 0; i < retries; i++) {
