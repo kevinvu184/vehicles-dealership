@@ -8,6 +8,7 @@
     "serverless-plugin-typescript": "^2.1.1"
   },
   "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.54.1",
     "@types/aws-lambda": "^8.10.93",
     "axios": "^0.26.1"
   }
