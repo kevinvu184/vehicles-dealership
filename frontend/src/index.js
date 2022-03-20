@@ -1,3 +1,5 @@
+const url = "https://cgckwzmh0l.execute-api.ap-southeast-2.amazonaws.com";
+
 async function loadTableData(url) {
   const tableBody = document.querySelector("tbody");
   const response = await fetch(url);
@@ -18,7 +20,7 @@ async function loadTableData(url) {
 }
 
 async function loadRowData(id) {
-  const response = await fetch(`https://bb61co4l22.execute-api.us-west-2.amazonaws.com/development/vehicles/${id}`);
+  const response = await fetch(`${url}/vehicles/${id}`);
   if (response.ok) {
     const data = await response.json();
     document.querySelector("#details").innerHTML = "<div><pre>" + JSON.stringify(data, null, 2) + "</pre></div>";
@@ -27,4 +29,4 @@ async function loadRowData(id) {
   }
 }
 
-loadTableData('https://bb61co4l22.execute-api.us-west-2.amazonaws.com/development/dealers');
+loadTableData(`${url}/dealers`);
