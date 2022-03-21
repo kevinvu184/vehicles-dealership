@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "description": "",
   "devDependencies": {
+    "@types/jest": "^27.4.1",
+    "jest": "^27.5.1",
     "serverless-iam-roles-per-function": "^3.2.0",
     "serverless-offline": "^8.5.0",
     "serverless-plugin-typescript": "^2.1.1"
@@ -11,5 +13,8 @@
     "@aws-sdk/client-dynamodb": "^3.54.1",
     "@types/aws-lambda": "^8.10.93",
     "axios": "^0.26.1"
+  },
+  "scripts": {
+    "test": "jest"
   }
 }
