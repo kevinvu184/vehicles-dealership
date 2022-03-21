@@ -59,25 +59,32 @@ for get vehicles under one dealer (you should be able to get the bac number from
 - Source code url: https://github.com/kevinvu184/VehiclesDealership
 - Website url: http://frontendstack-websitebucket75c24d94-1lijyppqc7e3g.s3-website-ap-southeast-2.amazonaws.com/
 - API urls:
-  - `GET - https://cy30854e9g.execute-api.ap-southeast-2.amazonaws.com/dealers`
-for get list of dealers **wrapper**
-  - `GET - https://cy30854e9g.execute-api.ap-southeast-2.amazonaws.com/vehicles/{bac}`
-for get vehicles under one dealer **wrapper**
+  - **wrapper**: `GET - https://cy30854e9g.execute-api.ap-southeast-2.amazonaws.com/dealers`
+for get list of dealers
+  - **wrapper**: `GET - https://cy30854e9g.execute-api.ap-southeast-2.amazonaws.com/vehicles/{bac}`
+for get vehicles under one dealer
 
 ### Documentation
 #### Architecture
 ![Architecture](./assets/architecture.png)
 #### Error Handling Solution
 - Mechanism 1: Asynchorous retry to the third party API
-  - Tradeoff:
+  - Tradeoff: put heavy load to the third party API -> API enforces limit/quota/cost
 - Mechanism 2: Caching the success responses to a DynamoDB table
+  - Tradeoff: the case when the database haven't had the cache -> the user experience is compromised
 #### Improvement
-- CloudFront
+- Route53 + CloudFront ([Link](https://github.com/aws-samples/aws-cdk-examples/blob/master/typescript/static-site/static-site.ts))
+- TDD  - Jest
 #### Technology
 - Frontend: 
   - HTML/CSS/JS + Bootstrap
   - Typescript + AWS CDK
-  - GitHub Actions
 - Backend:
-  - Typescript
-  - Serverless
+  - Typescript + AWS SDK v3
+  - YML + Serverless
+- CICD:
+  - GitHub Actions
+  - Unit Test, Lint, Format
+- Test:
+  - Unit test
+  - Jest, Mocking
