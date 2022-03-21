@@ -1,8 +1,8 @@
 const url = "https://cy30854e9g.execute-api.ap-southeast-2.amazonaws.com";
 
-async function loadTableData(url) {
+async function loadTableData() {
   const tableBody = document.querySelector("#dealers-table");
-  const response = await fetch(url);
+  const response = await fetch(`${url}/dealers`);
 
   if (response.ok) {
     const data = await response.json();
@@ -39,4 +39,4 @@ async function loadRowData(id) {
   }
 }
 
-loadTableData(`${url}/dealers`);
+loadTableData();

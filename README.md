@@ -73,3 +73,11 @@ for get vehicles under one dealer **wrapper**
 - Mechanism 2: Caching the success responses to a DynamoDB table
 #### Improvement
 - CloudFront
+#### Technology
+- Frontend: 
+  - HTML/CSS/JS + Bootstrap
+  - Typescript + AWS CDK
+  - GitHub Actions
+- Backend:
+  - Typescript
+  - Serverless
