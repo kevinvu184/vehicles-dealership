@@ -7,7 +7,8 @@ import {
 import axios from "axios";
 import { handler } from "./listDealers";
 
-jest.spyOn(global.console, "error").mockImplementation(() => undefined);
+jest.spyOn(global.console, "error")
+.mockImplementation(() => undefined);
 
 // https://stackoverflow.com/questions/51495473/typescript-and-jest-avoiding-type-errors-on-mocked-functions
 jest.mock("axios");

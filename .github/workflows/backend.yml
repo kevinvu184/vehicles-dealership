@@ -12,6 +12,8 @@ jobs:
           node-version: ${{ matrix.node-version }}
       
       - run: cd backend/ && npm install
+      
+      - run: cd backend/ && npm run format
 
       - name: serverless deploy
         uses: serverless/github-action@v3
