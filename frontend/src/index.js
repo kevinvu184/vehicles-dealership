@@ -1,7 +1,7 @@
 const url = "https://cy30854e9g.execute-api.ap-southeast-2.amazonaws.com";
 
 async function loadTableData(url) {
-  const tableBody = document.querySelector("tbody");
+  const tableBody = document.querySelector("#dealers-table");
   const response = await fetch(url);
 
   if (response.ok) {
@@ -20,10 +20,20 @@ async function loadTableData(url) {
 }
 
 async function loadRowData(id) {
+  const tableBody = document.querySelector("#vehicles-table");
   const response = await fetch(`${url}/vehicles/${id}`);
+
   if (response.ok) {
     const data = await response.json();
-    document.querySelector("#details").innerHTML = "<div><pre>" + JSON.stringify(data, null, 2) + "</pre></div>";
+    const row = tableBody.insertRow();
+    row.insertCell().innerHTML = data.bac;
+    row.insertCell().innerHTML = data.vin;
+    row.insertCell().innerHTML = data.ctpStatus;
+    row.insertCell().innerHTML = data.onstarStatus;
+    row.insertCell().innerHTML = data.createdAt;
+    row.insertCell().innerHTML = data.color;
+    row.insertCell().innerHTML = data.stockNumber;
+    row.insertCell().innerHTML = data.year;
   } else {
     console.error("Error");
   }
