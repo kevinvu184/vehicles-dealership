@@ -72,6 +72,7 @@ The frontend is a static website hosted in AWS S3, which is connected with the A
 #### Error Handling Solution
 - Mechanism 1: Asynchorous retry to the third party API
   - Tradeoff: put heavy load to the third party API -> API enforces limit/quota/cost
+  - Lambda timeout!
 - Mechanism 2: Caching the success responses to a DynamoDB table
   - Tradeoff: the case when the database haven't had the cache -> the user experience is compromised
 #### Improvement
