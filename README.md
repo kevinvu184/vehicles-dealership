@@ -66,7 +66,9 @@ for get vehicles under one dealer
 
 ### Documentation
 #### Architecture
+The frontend is a static website hosted in AWS S3, which is connected with the AWS serverless backend. The backend contains logic to handle unexpected 500 errors.
 ![Architecture](./assets/architecture.png)
+![DynamoDB](./assets/dynamodb.png)
 #### Error Handling Solution
 - Mechanism 1: Asynchorous retry to the third party API
   - Tradeoff: put heavy load to the third party API -> API enforces limit/quota/cost
