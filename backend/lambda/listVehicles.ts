@@ -1,12 +1,18 @@
-import { APIGatewayProxyHandler } from 'aws-lambda';
-import { DynamoDBClient, UpdateItemCommand, UpdateItemCommandInput, GetItemCommand, GetItemCommandInput } from "@aws-sdk/client-dynamodb";
-import axios from 'axios';
+import { APIGatewayProxyHandler } from "aws-lambda";
+import {
+  DynamoDBClient,
+  UpdateItemCommand,
+  UpdateItemCommandInput,
+  GetItemCommand,
+  GetItemCommandInput,
+} from "@aws-sdk/client-dynamodb";
+import axios from "axios";
 
 const client = new DynamoDBClient({ region: process.env.REGION });
 const CACHE_TABLE = process.env.CACHE_TABLE;
 
 export const handler: APIGatewayProxyHandler = async (event) => {
-  const retries = 3
+  const retries = 3;
   const bac = event.pathParameters.bac;
   const url = `https://bb61co4l22.execute-api.us-west-2.amazonaws.com/development/vehicles/${bac}`;
 
@@ -20,17 +26,17 @@ export const handler: APIGatewayProxyHandler = async (event) => {
         TableName: CACHE_TABLE,
         Key: {
           PK: { S: `VEHICLES#` },
-          SK: { S: `VEHICLES#${bac}` }
+          SK: { S: `VEHICLES#${bac}` },
         },
-        UpdateExpression: 'SET #response = :response',
+        UpdateExpression: "SET #response = :response",
         ExpressionAttributeValues: {
-          ':response': {
-            S: JSON.stringify(data)
-          }
+          ":response": {
+            S: JSON.stringify(data),
+          },
         },
         ExpressionAttributeNames: {
-          '#response': 'response'
-        }
+          "#response": "response",
+        },
       };
       const updateCommand = new UpdateItemCommand(updateParams);
       await client.send(updateCommand);
@@ -50,8 +56,8 @@ export const handler: APIGatewayProxyHandler = async (event) => {
     TableName: CACHE_TABLE,
     Key: {
       PK: { S: `VEHICLES#` },
-      SK: { S: `VEHICLES#${bac}` }
-    }
+      SK: { S: `VEHICLES#${bac}` },
+    },
   };
   const getCommand = new GetItemCommand(getParams);
 
@@ -59,12 +65,12 @@ export const handler: APIGatewayProxyHandler = async (event) => {
     const response = await client.send(getCommand);
     return {
       statusCode: 200,
-      body: JSON.stringify(JSON.parse(response.Item.response.S))
+      body: JSON.stringify(JSON.parse(response.Item.response.S)),
     };
   } catch (error) {
     return {
       statusCode: 500,
-      body: JSON.stringify(error)
+      body: JSON.stringify(error),
     };
   }
 };

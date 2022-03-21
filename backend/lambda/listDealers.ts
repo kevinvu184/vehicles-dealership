@@ -1,13 +1,20 @@
-import { APIGatewayProxyHandler } from 'aws-lambda';
-import { DynamoDBClient, UpdateItemCommand, UpdateItemCommandInput, GetItemCommand, GetItemCommandInput } from "@aws-sdk/client-dynamodb";
-import axios from 'axios';
+import { APIGatewayProxyHandler } from "aws-lambda";
+import {
+  DynamoDBClient,
+  UpdateItemCommand,
+  UpdateItemCommandInput,
+  GetItemCommand,
+  GetItemCommandInput,
+} from "@aws-sdk/client-dynamodb";
+import axios from "axios";
 
 const client = new DynamoDBClient({ region: process.env.REGION });
 const CACHE_TABLE = process.env.CACHE_TABLE;
 
 export const handler: APIGatewayProxyHandler = async () => {
-  const retries = 3
-  const url = 'https://bb61co4l22.execute-api.us-west-2.amazonaws.com/development/dealers';
+  const retries = 3;
+  const url =
+    "https://bb61co4l22.execute-api.us-west-2.amazonaws.com/development/dealers";
 
   // first mechanism - retry 3 times
   for (let i = 0; i < retries; i++) {
@@ -18,18 +25,18 @@ export const handler: APIGatewayProxyHandler = async () => {
       const updateParams: UpdateItemCommandInput = {
         TableName: CACHE_TABLE,
         Key: {
-          PK: { S: 'DEALERS#' },
-          SK: { S: 'DEALERS#' }
+          PK: { S: "DEALERS#" },
+          SK: { S: "DEALERS#" },
         },
-        UpdateExpression: 'SET #response = :response',
+        UpdateExpression: "SET #response = :response",
         ExpressionAttributeValues: {
-          ':response': {
-            S: JSON.stringify(data)
-          }
+          ":response": {
+            S: JSON.stringify(data),
+          },
         },
         ExpressionAttributeNames: {
-          '#response': 'response'
-        }
+          "#response": "response",
+        },
       };
       const updateCommand = new UpdateItemCommand(updateParams);
       await client.send(updateCommand);
@@ -48,9 +55,9 @@ export const handler: APIGatewayProxyHandler = async () => {
   const getParams: GetItemCommandInput = {
     TableName: CACHE_TABLE,
     Key: {
-      PK: { S: 'DEALERS#' },
-      SK: { S: 'DEALERS#' }
-    }
+      PK: { S: "DEALERS#" },
+      SK: { S: "DEALERS#" },
+    },
   };
   const getCommand = new GetItemCommand(getParams);
 
@@ -58,12 +65,12 @@ export const handler: APIGatewayProxyHandler = async () => {
     const response = await client.send(getCommand);
     return {
       statusCode: 200,
-      body: JSON.stringify(JSON.parse(response.Item.response.S))
+      body: JSON.stringify(JSON.parse(response.Item.response.S)),
     };
   } catch (error) {
     return {
       statusCode: 500,
-      body: JSON.stringify(error)
+      body: JSON.stringify(error),
     };
   }
 };

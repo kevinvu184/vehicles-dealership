@@ -1,8 +1,8 @@
 service: backend
-frameworkVersion: '3'
+frameworkVersion: "3"
 
 custom:
-  tableName: 'cache-table-${sls:stage}'
+  tableName: "cache-table-${sls:stage}"
 
 provider:
   name: aws
@@ -27,7 +27,7 @@ functions:
           - dynamodb:UpdateItem
           - dynamodb:GetItem
         Resource:
-          - Fn::GetAtt: [ CacheTable, Arn ]
+          - Fn::GetAtt: [CacheTable, Arn]
   listVehicles:
     handler: lambda/listVehicles.handler
     events:
@@ -40,7 +40,7 @@ functions:
           - dynamodb:UpdateItem
           - dynamodb:GetItem
         Resource:
-          - Fn::GetAtt: [ CacheTable, Arn ]
+          - Fn::GetAtt: [CacheTable, Arn]
 
 resources:
   Resources:
