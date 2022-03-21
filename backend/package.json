@@ -23,7 +23,7 @@
   },
   "scripts": {
     "test": "jest",
-    "lint": "eslint --ext .js,.ts lambda/",
+    "lint": "eslint lambda/",
     "format": "prettier --check lambda/"
   }
 }
